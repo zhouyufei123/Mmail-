@@ -11,7 +11,6 @@ let Request = {
     },
     _getReq:function(url,method="get",data={},resolve,reject){
         let format = method=="get"?"params":"data";
-
         axios({
             url:url,
             method:method,
@@ -23,4 +22,5 @@ let Request = {
         })
     }
 }
+
 export { Request }

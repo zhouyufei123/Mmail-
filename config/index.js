@@ -10,7 +10,17 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      //登录
+      "/api":{
+        target:"http://adminv2.happymmall.com/manage",
+        changeOrigin:true,
+        pathRewrite:{
+          "^/api":""
+        }
+      }
+
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

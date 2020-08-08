@@ -2,24 +2,54 @@
 <div class='login'>
 
     <div class="one">
-        <h1>欢迎登录 - MMALL管理系统</h1>
-        <el-input v-model="input1" placeholder="请输入用户名"></el-input>
-        <el-input v-model="input2" placeholder="请输入管理员密码"></el-input>
-        <el-button type="primary">登录</el-button>
+        
+                <h1>欢迎登录 - MMALL管理系统</h1>
+                <el-input v-model="loginfrom.username" placeholder="请输入用户名"></el-input>
+                <el-input type="password" v-model="loginfrom.password" placeholder="请输入管理员密码"></el-input>
+                <el-button type="primary" @click="sup()">登录</el-button>
+
     </div>
+
+    
 </div>
 </template>
 <script>
+import {login} from '@/request/http'
 export default {
 props: {},
 data() {
  return {
-     input1:'',
-     input2:''
+     loginfrom:{
+         username:'admin',
+         password:'admin'
+     }
  };
 },
 //事件处理器
-methods: {},
+methods: {
+    sup(){
+        // alert(1)
+        console.log(this.loginfrom)
+        login(this.loginfrom).then((data)=>{
+
+            if (data.data.status==0) {
+
+                localStorage.setItem('admin',this.loginfrom.username)
+
+                this.$router.push('/sy')
+
+                this.$message(data.data.msg)
+
+            }else{
+
+                this.$message(data.data.msg)
+
+            }
+        })
+        
+        }
+    
+},
 // 计算属性
 computed: {},
 //侦听器
